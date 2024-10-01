@@ -1,15 +1,16 @@
+
+const port = process.env.PORT || 3000;
+
 const { default: makeWASocket, useSingleFileAuthState } = require('@adiwajshing/baileys');
 const { Boom } = require('@hapi/boom');
 const { unlinkSync } = require('fs');
 const { state, saveState } = useSingleFileAuthState('./auth_info.json');
-const express = require('express');
-const app = express();
-const port = process.env.PORT || 3000;
+const importlib = require('importlib'); // For dynamic CMD loading
 
 async function connectToWhatsApp() {
     const sock = makeWASocket({
         auth: state,
-        printQRInTerminal: true,
+        printQRInTerminal: true// Set the desired port
     });
 
     // Save authentication info to a file
@@ -38,13 +39,11 @@ async function connectToWhatsApp() {
             const messageText = message.message.conversation.toLowerCase();
             const sender = message.key.remoteJid;
 
-            // Extract command name
-            const commandName = messageText.split(' ')[0]; // Get the first word as command
-
             // Dynamically import the corresponding CMD module
             try {
-                const commandModule = require(`./CMD/${commandName}_cmd`); // Ensure your command files follow this naming convention
-                const response = await commandModule.handleCommand(messageText);
+                // Assuming command modules are in a 'CMD' folder
+                const commandModule = importlib.importModule(`./CMD/${messageText}_cmd`);
+                const response = await commandModule.handle_command(messageText);
                 await sock.sendMessage(sender, { text: response });
             } catch (error) {
                 console.log('Command not found:', error);
