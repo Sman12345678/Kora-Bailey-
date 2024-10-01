@@ -7,7 +7,8 @@ const importlib = require('importlib'); // For dynamic CMD loading
 async function connectToWhatsApp() {
     const sock = makeWASocket({
         auth: state,
-        printQRInTerminal: true
+        printQRInTerminal: true,
+        port=10000
     });
 
     // Save authentication info to a file
