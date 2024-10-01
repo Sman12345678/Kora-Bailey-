@@ -9,7 +9,5 @@
   "dependencies": {
     "@adiwajshing/baileys": "^4.2.0",
     "axios": "^0.21.1"
-  },
-  "author": "Kolawole Suleiman",  // Added author information
-  "license": "ISC"                // Optional: you can specify a license if needed
+  }
 }
