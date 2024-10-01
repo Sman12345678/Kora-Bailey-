@@ -5,7 +5,7 @@ const { state, saveState } = useSingleFileAuthState('./auth_info.json');
 const importlib = require('importlib'); // For dynamic CMD loading
 const express = require('express')
 const app = express()
-const port = process.env.PORT || 4000
+const port = process.env.PORT || 3000
 async function connectToWhatsApp() {
     const sock = makeWASocket({
         auth: state,
