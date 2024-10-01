@@ -3,12 +3,14 @@ const { Boom } = require('@hapi/boom');
 const { unlinkSync } = require('fs');
 const { state, saveState } = useSingleFileAuthState('./auth_info.json');
 const importlib = require('importlib'); // For dynamic CMD loading
-
+const express = require('express')
+const app = express()
+const port = process.env.PORT || 4000
 async function connectToWhatsApp() {
     const sock = makeWASocket({
         auth: state,
         printQRInTerminal: true,
-        port=10000
+        
     });
 
     // Save authentication info to a file
