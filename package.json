@@ -1,13 +1,14 @@
 {
   "name": "whatsapp-bot",
   "version": "1.0.0",
-  "description": "WhatsApp Bot using Baileys",
+  "description": "A WhatsApp bot using Baileys and Express by kolawole Suleiman",
   "main": "bot.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "@adiwajshing/baileys": "^4.0.0"
+  },
   "scripts": {
     "start": "node bot.js"
   },
-  "dependencies": {
-    "@adiwajshing/baileys": "^4.2.0",
-    "axios": "^0.21.1"
-  }
+  "author": "Kolawole Suleiman"
 }
