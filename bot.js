@@ -1,16 +1,16 @@
-
-const port = process.env.PORT || 3000;
-
-const { default: makeWASocket, useSingleFileAuthState } = require('@adiwajshing/baileys');
+Here is my bot.js so help me debug and modify in relation to the error no module 'importlib' stated by render: const { default: makeWASocket, useSingleFileAuthState } = require('@adiwajshing/baileys');
 const { Boom } = require('@hapi/boom');
 const { unlinkSync } = require('fs');
 const { state, saveState } = useSingleFileAuthState('./auth_info.json');
 const importlib = require('importlib'); // For dynamic CMD loading
-
+const express = require('express')
+const app = express()
+const port = process.env.PORT || 3000
 async function connectToWhatsApp() {
     const sock = makeWASocket({
         auth: state,
-        printQRInTerminal: true// Set the desired port
+        printQRInTerminal: true,
+        
     });
 
     // Save authentication info to a file
@@ -41,8 +41,7 @@ async function connectToWhatsApp() {
 
             // Dynamically import the corresponding CMD module
             try {
-                // Assuming command modules are in a 'CMD' folder
-                const commandModule = importlib.importModule(`./CMD/${messageText}_cmd`);
+                const commandModule = require(`./CMD/${messageText}_cmd`);
                 const response = await commandModule.handle_command(messageText);
                 await sock.sendMessage(sender, { text: response });
             } catch (error) {
